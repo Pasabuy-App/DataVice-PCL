@@ -44,6 +44,7 @@ namespace DataVice_PCL.Feeds
             getRequest += "&snky" + session_key;
 
             var response = await client.GetAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/feeds/profile" + getRequest);
+            response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {

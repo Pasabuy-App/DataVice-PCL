@@ -26,7 +26,7 @@ namespace DataVice_PCL.Feeds
         #endregion
         #region Constructor
         /// <summary>
-        /// Web service for communication for out Backend.
+        /// Web service for communication for our Backend.
         /// </summary>
         HttpClient client;
         public P_Feeds()
@@ -34,7 +34,7 @@ namespace DataVice_PCL.Feeds
             client = new HttpClient();
         }
         #endregion
-        #region
+        #region Method
         public async void GetData(string wp_id, string last_min_id, string session_key, Action<bool, string> callback)
         {
             string getRequest = "?";
@@ -43,6 +43,7 @@ namespace DataVice_PCL.Feeds
             getRequest += "&snky" + session_key;
 
             var response = await client.GetAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/feeds/p_feeds" + getRequest);
+            response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
@@ -55,7 +56,7 @@ namespace DataVice_PCL.Feeds
             }
             else
             {
-                callback(false, "Network Error! Check your connection.")
+                callback(false, "Network Error! Check your connection.");
             }
         }
         #endregion

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Net.Http;
 using DataVice_PCL.Users.Struct;
@@ -26,16 +25,18 @@ namespace DataVice_PCL.Users
             }
         }
         #endregion
+        #region Construtor
         /// <summary>
         /// Web service for communication for our Backend.
         /// </summary>
-        #region Construtor
         HttpClient client;
 
         public UserData()
         {
             client = new HttpClient();
         }
+        #endregion
+        #region Method
         public async void GetData(string wp_id, string session_key, Action<bool, string> callback)
         {
             string getRequest = "?";
@@ -43,7 +44,7 @@ namespace DataVice_PCL.Users
                 getRequest += "&snky=" + session_key;
 
             var response = await client.GetAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/user/data" + getRequest);
-
+            response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {

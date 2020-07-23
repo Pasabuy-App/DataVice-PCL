@@ -4,18 +4,17 @@ using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
 using DataVice_PCL.Users.Struct;
-using System.Linq;
 
 namespace DataVice_PCL.Users
 {
-    class Reset
+    public class Reset
     {
         #region Fields
         /// <summary>
         /// Instance for Change Password Class.
         /// </summary>
-        private Reset instance;
-        public Reset Instance
+        private static Reset instance;
+        public static Reset Instance
         {
             get
             {
@@ -24,28 +23,30 @@ namespace DataVice_PCL.Users
                     return instance;
             }
         }
-
+        #endregion
+        #region Consructor
         /// <summary>
         /// Web service for comunication for our Backend.
         /// </summary>
 
         HttpClient client;
 
-        #endregion
-
-        #region Consructor
         public Reset()
         {
             client = new HttpClient();
         }
+        #endregion
+        #region Method
         public async void Submit(string activation_key, string password, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("AK", activation_key);
-                dict.Add("PW", password);
+                dict.Add("ak", activation_key);
+                dict.Add("pw", password);
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/user/reset", content);
+            response.EnsureSuccessStatusCode();
+
             if (response.IsSuccessStatusCode)
             {
                 string result = await response.Content.ReadAsStringAsync();

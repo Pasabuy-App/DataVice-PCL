@@ -7,15 +7,14 @@ using DataVice_PCL.Users.Struct;
 
 namespace DataVice_PCL.Users
 {
-    class Forgot
+    public class Forgot
     {
         #region Fields
-
         /// <summary>
         /// Instance for Forgot Password Class.
         /// </summary>
-        private Forgot instance;
-        public Forgot Instance
+        private static Forgot instance;
+        public static Forgot Instance
         {
             get
             {
@@ -26,25 +25,27 @@ namespace DataVice_PCL.Users
         }
         #endregion
 
+        #region Constructor
         /// <summary>
         /// Web service for communication for our Backend.
         /// </summary>
 
         HttpClient client;
-
-        #region Constructor
         public Forgot()
         {
             client = new HttpClient();
         }
+        #endregion
+        #region Method
         public async void Submit(string username, string password, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("UN", username);
-                dict.Add("PW", password);
+                dict.Add("un", username);
+                dict.Add("pw", password);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "datavice/api/v1/user/forgot", content);
+            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/user/forgot", content);
+            response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {

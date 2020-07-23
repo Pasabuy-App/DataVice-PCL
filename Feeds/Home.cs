@@ -35,12 +35,13 @@ namespace DataVice_PCL.Feeds
         }
         #endregion
         #region Method
-        public async void Home(string wp_id, string session_key, Action<bool, string> callback)
+        public async void GetData(string wp_id, string session_key, Action<bool, string> callback)
         {
             string getRequest = "?";
             getRequest += "wpid" + wp_id;
             getRequest += "$snky" + session_key;
             var response = await client.GetAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/feeds/home" + getRequest);
+            response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
