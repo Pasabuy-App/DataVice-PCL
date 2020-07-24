@@ -35,10 +35,11 @@ namespace DataVice_PCL.Activity_Log
         }
         #endregion
         #region Method
-        public async void Create(string wpid, string stid, string icon, string title, string info, Action<bool, string> callback)
+        public async void Create(string wpid, string session_key, string stid, string icon, string title, string info, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
             dict.Add("wpid", wpid);
+            dict.Add("snky", session_key);
             dict.Add("stid", stid);
             dict.Add("icon", icon);
             dict.Add("title", title);

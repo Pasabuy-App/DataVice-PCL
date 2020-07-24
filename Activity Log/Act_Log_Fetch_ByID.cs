@@ -11,7 +11,7 @@ namespace DataVice_PCL.Activity_Log
     {
         #region Fields
         /// <summary>
-        /// Instance for Act_Log_Create Class.
+        /// Instance for Act_Log_Fetch_ByID Class.
         /// </summary>
         private static Activity_Log_ByID instance;
         public static Activity_Log_ByID Instance
