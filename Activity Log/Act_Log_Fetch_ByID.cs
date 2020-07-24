@@ -43,7 +43,12 @@ namespace DataVice_PCL.Activity_Log
             dict.Add("atid", activity_id);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/activity/get_activity_byid", content);
+            string getRequest = "?";
+                getRequest += "wpid" + wpid;
+                getRequest += "&snky" + session_key;
+                getRequest += "&atid" + activity_id;
+
+            var response = await client.GetAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/activity/get_activity_byid" + getRequest);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
