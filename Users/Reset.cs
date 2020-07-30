@@ -11,7 +11,7 @@ namespace DataVice_PCL.Users
     {
         #region Fields
         /// <summary>
-        /// Instance for Change Password Class.
+        /// Instance of Change/Reset Password Class.
         /// </summary>
         private static Reset instance;
         public static Reset Instance
@@ -20,27 +20,25 @@ namespace DataVice_PCL.Users
             {
                 if (instance == null)
                     instance = new Reset();
-                    return instance;
+                return instance;
             }
         }
         #endregion
         #region Consructor
         /// <summary>
-        /// Web service for comunication for our Backend.
+        /// Web service for communication to our Backend.
         /// </summary>
-
         HttpClient client;
-
         public Reset()
         {
             client = new HttpClient();
         }
         #endregion
-        #region Method
+        #region Methods
         public async void Submit(string activation_key, string password, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("ak", activation_key);
+                dict.Add("akey", activation_key);
                 dict.Add("pw", password);
             var content = new FormUrlEncodedContent(dict);
 
@@ -61,7 +59,6 @@ namespace DataVice_PCL.Users
                 callback(false, "Network Error! Check your connection.");
             }
         }
-
         #endregion
 
     }

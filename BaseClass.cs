@@ -11,7 +11,7 @@ namespace DataVice_PCL
         {
             get
             {
-                return "http://localhost";
+                return "http://localhost/wordpress/wp-json";
             }
         }
     }

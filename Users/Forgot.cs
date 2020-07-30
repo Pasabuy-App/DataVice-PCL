@@ -11,7 +11,7 @@ namespace DataVice_PCL.Users
     {
         #region Fields
         /// <summary>
-        /// Instance for Forgot Password Class.
+        /// Instance of Forgot Password Class.
         /// </summary>
         private static Forgot instance;
         public static Forgot Instance
@@ -24,19 +24,17 @@ namespace DataVice_PCL.Users
             }
         }
         #endregion
-
         #region Constructor
         /// <summary>
-        /// Web service for communication for our Backend.
+        /// Web service for communication to our Backend.
         /// </summary>
-
         HttpClient client;
         public Forgot()
         {
             client = new HttpClient();
         }
         #endregion
-        #region Method
+        #region Methods
         public async void Submit(string username, string password, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
@@ -55,7 +53,6 @@ namespace DataVice_PCL.Users
                 bool success = token.status == "success" ? true : false;
                 string data = token.status == "success" ? result : token.message;
                 callback(success, data);
-
             }
             else
             {

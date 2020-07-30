@@ -5,16 +5,15 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using DataVice_PCL.Users.Struct;
 
-
 namespace DataVice_PCL.Users
 {
     public class Auth
     {
-        private static Auth instance;
-
+        #region Fields 
         /// <summary>
         /// Instance of Authentication Class.
         /// </summary>
+        private static Auth instance;
         public static Auth Instance
         {
             get
@@ -24,29 +23,27 @@ namespace DataVice_PCL.Users
                 return instance;
             }
         }
-
+        #endregion
+        #region Construtor
         /// <summary>
         /// Web service for communication to our Backend.
         /// </summary>
         HttpClient client;
-
-        #region Constructor
         public Auth()
         {
             client = new HttpClient();
         }
         #endregion
-
         #region Methods
         public async void Submit(string username, string password, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("UN", username);
-                dict.Add("PW", password);
+                dict.Add("un", username);
+                dict.Add("pw", password);
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/user/auth", content);
-                response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
@@ -57,7 +54,6 @@ namespace DataVice_PCL.Users
                 string data = token.status == "success" ? result : token.message;
                 callback(success, data);
             }
-
             else
             {
                 callback(false, "Network Error! Check your connection.");
