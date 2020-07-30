@@ -44,7 +44,7 @@ namespace DataVice_PCL.Users
 
             var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/user/data", content);
             response.EnsureSuccessStatusCode();
-            
+
             if (response.IsSuccessStatusCode)
             {
                 string result = await response.Content.ReadAsStringAsync();

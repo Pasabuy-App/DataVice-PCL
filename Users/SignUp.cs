@@ -35,7 +35,7 @@ namespace DataVice_PCL.Users
         }
         #endregion
         #region Methods
-        public async void Submit(string username, string email, string fullname, string lastname, string gender, string province, string city,  Action<bool, string> callback)
+        public async void Submit(string username, string email, string fullname, string lastname, string gender, string province, string city, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("un", username);
