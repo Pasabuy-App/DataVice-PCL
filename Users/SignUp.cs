@@ -35,7 +35,7 @@ namespace DataVice_PCL.Users
         }
         #endregion
         #region Methods
-        public async void Submit(string username, string email, string fullname, string lastname, string gender, string province, string city, Action<bool, string> callback)
+        public async void Submit(string username, string email, string fullname, string lastname, string gender, string bday, string country, string province, string city, string brgy, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("un", username);
@@ -43,8 +43,11 @@ namespace DataVice_PCL.Users
                 dict.Add("fn", fullname);
                 dict.Add("ln", lastname);
                 dict.Add("gd", gender);
-                dict.Add("pr", province);
+                dict.Add("bd", bday);
+                dict.Add("co", country);
+                dict.Add("pv", province);
                 dict.Add("ct", city);
+                dict.Add("bg", brgy);
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/signup", content);

@@ -35,10 +35,11 @@ namespace DataVice_PCL.Users
         }
         #endregion
         #region Methods
-        public async void Submit(string activation_key, string password, Action<bool, string> callback)
+        public async void Submit(string activation_key, string username, string password, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("akey", activation_key);
+                dict.Add("ak", activation_key);
+                dict.Add("un", username);
                 dict.Add("pw", password);
             var content = new FormUrlEncodedContent(dict);
 
