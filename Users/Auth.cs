@@ -42,7 +42,7 @@ namespace DataVice_PCL.Users
                 dict.Add("pw", password);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/user/auth", content);
+            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/auth", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

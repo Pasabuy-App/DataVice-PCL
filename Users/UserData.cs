@@ -42,7 +42,7 @@ namespace DataVice_PCL.Users
                 dict.Add("snky", session_key);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/user/data", content);
+            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/data", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

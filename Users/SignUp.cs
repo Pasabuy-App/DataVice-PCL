@@ -47,7 +47,7 @@ namespace DataVice_PCL.Users
                 dict.Add("ct", city);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/api/v1/user/signup", content);
+            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/signup", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
