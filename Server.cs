@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DataVice
+﻿namespace DataVice
 {
     public class Server
     {

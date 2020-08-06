@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DataVice.Users.Struct;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Net.Http;
-using DataVice.Users.Struct;
 
 namespace DataVice.Users
 {
@@ -37,16 +37,16 @@ namespace DataVice.Users
         public async void Submit(string username, string email, string fullname, string lastname, string gender, string bday, string country, string province, string city, string brgy, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("un", username);
-                dict.Add("em", email);
-                dict.Add("fn", fullname);
-                dict.Add("ln", lastname);
-                dict.Add("gd", gender);
-                dict.Add("bd", bday);
-                dict.Add("co", country);
-                dict.Add("pv", province);
-                dict.Add("ct", city);
-                dict.Add("bg", brgy);
+            dict.Add("un", username);
+            dict.Add("em", email);
+            dict.Add("fn", fullname);
+            dict.Add("ln", lastname);
+            dict.Add("gd", gender);
+            dict.Add("bd", bday);
+            dict.Add("co", country);
+            dict.Add("pv", province);
+            dict.Add("ct", city);
+            dict.Add("bg", brgy);
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(Server.host + "/datavice/v1/user/signup", content);

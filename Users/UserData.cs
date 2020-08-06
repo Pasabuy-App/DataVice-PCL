@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DataVice.Users.Struct;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Net.Http;
-using DataVice.Users.Struct;
 
 namespace DataVice.Users
 {
@@ -37,8 +37,8 @@ namespace DataVice.Users
         public async void GetData(string wp_id, string session_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("wpid", wp_id);
-                dict.Add("snky", session_key);
+            dict.Add("wpid", wp_id);
+            dict.Add("snky", session_key);
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(Server.host + "/datavice/v1/user/data", content);

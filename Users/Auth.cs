@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DataVice.Users.Struct;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Net.Http;
-using DataVice.Users.Struct;
 
 namespace DataVice.Users
 {
@@ -37,8 +37,8 @@ namespace DataVice.Users
         public async void Submit(string username, string password, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("un", username);
-                dict.Add("pw", password);
+            dict.Add("un", username);
+            dict.Add("pw", password);
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(Server.host + "/datavice/v1/user/auth", content);
