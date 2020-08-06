@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DataVice_PCL.Users.Struct
+﻿
+namespace DataVice.Users.Struct
 {
     public class Token
     {

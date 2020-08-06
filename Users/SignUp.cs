@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
-using DataVice_PCL.Users.Struct;
+using DataVice.Users.Struct;
 
-namespace DataVice_PCL.Users
+namespace DataVice.Users
 {
     public class SignUp
     {
@@ -50,7 +49,7 @@ namespace DataVice_PCL.Users
                 dict.Add("bg", brgy);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/signup", content);
+            var response = await client.PostAsync(Server.host + "/datavice/v1/user/signup", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
