@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
-using DataVice_PCL.Users.Struct;
+using DataVice.Users.Struct;
 
-namespace DataVice_PCL.Contacts
+namespace DataVice.Contacts
 {
     public class Delete
     {
@@ -43,7 +43,7 @@ namespace DataVice_PCL.Contacts
                 dict.Add("ctcid", contact_id);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/delete", content);
+            var response = await client.PostAsync(Server.host + "/datavice/v1/contact/delete", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

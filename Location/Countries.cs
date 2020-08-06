@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
-using DataVice_PCL.Users.Struct;
+using DataVice.Users.Struct;
 
-namespace DataVice_PCL.Location
+namespace DataVice.Location
 {
     public class Countries
     {
@@ -40,7 +40,7 @@ namespace DataVice_PCL.Location
             var dict = new Dictionary<string, string>();
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/location/ctry", content);
+            var response = await client.PostAsync(Server.host + "/datavice/v1/location/ctry", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
