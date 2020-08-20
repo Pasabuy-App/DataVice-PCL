@@ -35,11 +35,10 @@ namespace DataVice_PCL.Users
         }
         #endregion
         #region Methods
-        public async void Submit(string username, string password, Action<bool, string> callback)
+        public async void Submit(string username, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("un", username);
-                dict.Add("pw", password);
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/forgot", content);
