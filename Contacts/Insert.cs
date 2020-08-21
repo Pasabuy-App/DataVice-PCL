@@ -35,17 +35,16 @@ namespace DataVice_PCL.Contacts
         }
         #endregion
         #region Methods
-        public async void Contact(string wp_id, string session_key, string phone, string email, string type, Action<bool, string> callback)
+        public async void Contact(string wp_id, string session_key, string type, string value, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("wpid", wp_id);
                 dict.Add("snky", session_key);
-                dict.Add("phone", phone);
-                dict.Add("email", email);
                 dict.Add("type", type);
+                dict.Add("value", value);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/insert", content);
+            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/user/insert", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

@@ -40,7 +40,7 @@ namespace DataVice_PCL.Contacts
             var dict = new Dictionary<string, string>();
                 dict.Add("wpid", wp_id);
                 dict.Add("snky", session_key);
-                dict.Add("ctcid", contact_id);
+                dict.Add("cid", contact_id);
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/delete", content);
