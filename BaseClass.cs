@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataVice_PCL
+namespace DataVice
 {
     public class BaseClass
     {
