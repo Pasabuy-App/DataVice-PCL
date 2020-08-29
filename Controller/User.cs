@@ -7,7 +7,7 @@ using DataVice.Controller.Struct;
 
 namespace DataVice.Controller
 {
-    class User
+    public class User
     {
         #region Fields 
         /// <summary>

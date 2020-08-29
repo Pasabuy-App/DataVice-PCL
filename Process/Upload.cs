@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
-using DataVice_PCL.Users.Struct;
+using DataVice.Controller.Struct;
 using System.IO;
 
-namespace DataVice_PCL.Process
+namespace DataVice.Process
 {
     public class Upload
     {

@@ -7,19 +7,19 @@ using DataVice.Controller.Struct;
 
 namespace DataVice.Controller
 {
-    public class Contact
+    public class Location
     {
         #region Fields
         /// <summary>
-        /// Instance of Contact Class with insert, update, delete, listing and select method.
+        /// Instance of Location Class with barangay, city, country and province method.
         /// </summary>
-        private static Contact instance;
-        public static Contact Instance
+        private static Location instance;
+        public static Location Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new Contact();
+                    instance = new Location();
                 return instance;
             }
         }
@@ -30,23 +30,20 @@ namespace DataVice.Controller
         /// Web service for communication to our Backend.
         /// </summary>
         HttpClient client;
-        public Contact()
+        public Location()
         {
             client = new HttpClient();
         }
         #endregion
 
-        #region Insert Method
-        public async void Insert(string wp_id, string session_key, string type, string value, Action<bool, string> callback)
+        #region Barangays Method
+        public async void Barangays(string city_code, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("wpid", wp_id);
-                dict.Add("snky", session_key);
-                dict.Add("type", type);
-                dict.Add("value", value);
+                dict.Add("ctc", city_code);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/user/insert", content);
+            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/location/brgy", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -66,16 +63,14 @@ namespace DataVice.Controller
         }
         #endregion
 
-        #region Delete Method
-        public async void Delete(string wp_id, string session_key, string contact_id, Action<bool, string> callback)
+        #region Cities Method
+        public async void Cities(string province_code, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("wpid", wp_id);
-                dict.Add("snky", session_key);
-                dict.Add("cid", contact_id);
+                dict.Add("pc", province_code);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/delete", content);
+            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/location/cty", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -95,18 +90,13 @@ namespace DataVice.Controller
         }
         #endregion
 
-        #region Update Method
-        public async void Update(string wp_id, string session_key, string cid, string type, string val, Action<bool, string> callback)
+        #region Countries Method
+        public async void Countries(Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("wpid", wp_id);
-                dict.Add("snky", session_key);
-                dict.Add("cid", cid);
-                dict.Add("type", type);
-                dict.Add("val", val);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/update", content);
+            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/location/ctry", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -126,44 +116,14 @@ namespace DataVice.Controller
         }
         #endregion
 
-        #region SelectByID Method
-        public async void SelectByID(string wp_id, string session_key, string cid, Action<bool, string> callback)
+        #region Provinces Method
+        public async void Provinces(string country_code, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("wpid", wp_id);
-                dict.Add("snky", session_key);
-                dict.Add("cid", cid);
+                dict.Add("cc", country_code);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/select", content);
-            response.EnsureSuccessStatusCode();
-
-            if (response.IsSuccessStatusCode)
-            {
-                string result = await response.Content.ReadAsStringAsync();
-                Token token = JsonConvert.DeserializeObject<Token>(result);
-
-                bool success = token.status == "success" ? true : false;
-                string data = token.status == "success" ? result : token.message;
-                callback(success, data);
-            }
-            else
-            {
-                callback(false, "Network Error! Check your connection.");
-            }
-
-        }
-        #endregion
-
-        #region Listing Method
-        public async void Listing(string wp_id, string session_key, Action<bool, string> callback)
-        {
-            var dict = new Dictionary<string, string>();
-                dict.Add("wpid", wp_id);
-                dict.Add("snky", session_key);
-            var content = new FormUrlEncodedContent(dict);
-
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/list/all", content);
+            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/location/prv", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
