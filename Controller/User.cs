@@ -118,13 +118,13 @@ namespace DataVice.Controller
         #endregion
 
         #region SignUp Method
-        public async void SignUp(string username, string email, string fullname, string lastname, string gender, string bday, 
+        public async void SignUp(string username, string email, string firstname, string lastname, string gender, string bday, 
                 string country, string province, string city, string brgy, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("un", username);
                 dict.Add("em", email);
-                dict.Add("fn", fullname);
+                dict.Add("fn", firstname);
                 dict.Add("ln", lastname);
                 dict.Add("gd", gender);
                 dict.Add("bd", bday);
@@ -161,7 +161,7 @@ namespace DataVice.Controller
                 dict.Add("snky", session_key);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/data", content);
+            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/profile", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
