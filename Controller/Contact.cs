@@ -10,7 +10,7 @@ namespace DataVice
     {
         #region Fields
         /// <summary>
-        /// Instance of Contact Class with insert, update, delete, listing and select method.
+        /// Instance of Contact Class with insert, update, delete, list, select type and id method.
         /// </summary>
         private static Contact instance;
         public static Contact Instance
@@ -126,7 +126,7 @@ namespace DataVice
         #endregion
 
         #region SelectByID Method
-        public async void Select(string wp_id, string session_key, string cid, Action<bool, string> callback)
+        public async void SelectByID(string wp_id, string session_key, string cid, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("wpid", wp_id);
@@ -154,7 +154,7 @@ namespace DataVice
         }
         #endregion
 
-        #region Listing Method
+        #region List Method
         public async void List(string wp_id, string session_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
@@ -163,6 +163,35 @@ namespace DataVice
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/contact/list/all", content);
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                string result = await response.Content.ReadAsStringAsync();
+                Token token = JsonConvert.DeserializeObject<Token>(result);
+
+                bool success = token.status == "success" ? true : false;
+                string data = token.status == "success" ? result : token.message;
+                callback(success, data);
+            }
+            else
+            {
+                callback(false, "Network Error! Check your connection.");
+            }
+
+        }
+        #endregion
+
+        #region SelectByType Method
+        public async void SelectByType(string wp_id, string session_key, string type, Action<bool, string> callback)
+        {
+            var dict = new Dictionary<string, string>();
+            dict.Add("wpid", wp_id);
+            dict.Add("snky", session_key);
+            dict.Add("type", type);
+            var content = new FormUrlEncodedContent(dict);
+
+            var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/contact/list/type", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

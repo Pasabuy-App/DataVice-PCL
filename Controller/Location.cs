@@ -36,13 +36,14 @@ namespace DataVice
         #endregion
 
         #region Barangays Method
-        public async void Barangays(string city_code, Action<bool, string> callback)
+        public async void Barangays(string city_code, string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("ctc", city_code);
+                dict.Add("city_code", city_code);
+                dict.Add("mkey", master_key);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/location/brgy", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/location/brgy/active", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -63,13 +64,14 @@ namespace DataVice
         #endregion
 
         #region Cities Method
-        public async void Cities(string province_code, Action<bool, string> callback)
+        public async void Cities(string province_code, string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("pc", province_code);
+                dict.Add("prov_code", province_code);
+                dict.Add("mkey", master_key);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync( DVHost.Instance.BaseDomain  + "/datavice/v1/location/cty", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain  + "/datavice/v1/location/city/active", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -90,12 +92,13 @@ namespace DataVice
         #endregion
 
         #region Countries Method
-        public async void Countries(Action<bool, string> callback)
+        public async void Countries(string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
+                dict.Add("mkey", master_key);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/location/ctry", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/location/country/active", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -116,13 +119,42 @@ namespace DataVice
         #endregion
 
         #region Provinces Method
-        public async void Provinces(string country_code, Action<bool, string> callback)
+        public async void Provinces(string country_code, string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
-                dict.Add("cc", country_code);
+                dict.Add("country_code", country_code);
+                dict.Add("mkey", master_key);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/location/prv", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/location/province/active", content);
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                string result = await response.Content.ReadAsStringAsync();
+                Token token = JsonConvert.DeserializeObject<Token>(result);
+
+                bool success = token.status == "success" ? true : false;
+                string data = token.status == "success" ? result : token.message;
+                callback(success, data);
+            }
+            else
+            {
+                callback(false, "Network Error! Check your connection.");
+            }
+
+        }
+        #endregion
+
+        #region Timezone Method
+        public async void Timezone(string country_code, string master_key, Action<bool, string> callback)
+        {
+            var dict = new Dictionary<string, string>();
+                dict.Add("country_code", country_code);
+                dict.Add("mkey", master_key);
+            var content = new FormUrlEncodedContent(dict);
+
+            var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/location/timezone", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

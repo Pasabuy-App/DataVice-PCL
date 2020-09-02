@@ -35,7 +35,7 @@ namespace DataVice
         }
         #endregion
         #region Methods
-        public async void Image(string wpid, string snky, string img, Action<bool, string> callback)
+        public async void Image(string wpid, string snky, string img, string stid, string pdid, string type, string mkey, Action<bool, string> callback)
         {
 
             // we need to send a request with multipart/form-data
@@ -44,6 +44,10 @@ namespace DataVice
             // add API method parameters
             multiForm.Add(new StringContent(wpid), "wpid");
             multiForm.Add(new StringContent(snky), "snky");
+            multiForm.Add(new StringContent(stid), "stid");
+            multiForm.Add(new StringContent(pdid), "pdid");
+            multiForm.Add(new StringContent(type), "type");
+            multiForm.Add(new StringContent(mkey), "mkey");
 
             // add file and directly upload it
             FileStream fs = File.OpenRead(img);
