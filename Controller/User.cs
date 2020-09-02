@@ -118,7 +118,7 @@ namespace DataVice
 
         #region SignUp Method
         public async void SignUp(string username, string email, string firstname, string lastname, string gender, string bday, 
-                string country, string province, string city, string brgy, Action<bool, string> callback)
+                string country, string province, string city, string brgy, string street, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("un", username);
@@ -131,6 +131,7 @@ namespace DataVice
                 dict.Add("pv", province);
                 dict.Add("ct", city);
                 dict.Add("bg", brgy);
+                dict.Add("st", street);
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/user/signup", content);
