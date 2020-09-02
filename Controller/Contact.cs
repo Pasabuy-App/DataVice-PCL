@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
-using DataVice.Controller.Struct;
+using DataVice.Model;
 
-namespace DataVice.Controller
+namespace DataVice
 {
     public class Contact
     {
@@ -46,7 +45,7 @@ namespace DataVice.Controller
                 dict.Add("value", value);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/user/insert", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/contact/user/insert", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -75,7 +74,7 @@ namespace DataVice.Controller
                 dict.Add("cid", contact_id);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/delete", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/contact/delete", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -106,7 +105,7 @@ namespace DataVice.Controller
                 dict.Add("val", val);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/update", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/contact/update", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -127,7 +126,7 @@ namespace DataVice.Controller
         #endregion
 
         #region SelectByID Method
-        public async void SelectByID(string wp_id, string session_key, string cid, Action<bool, string> callback)
+        public async void Select(string wp_id, string session_key, string cid, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("wpid", wp_id);
@@ -135,7 +134,7 @@ namespace DataVice.Controller
                 dict.Add("cid", cid);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/select", content);
+            var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/contact/select", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -156,14 +155,14 @@ namespace DataVice.Controller
         #endregion
 
         #region Listing Method
-        public async void Listing(string wp_id, string session_key, Action<bool, string> callback)
+        public async void List(string wp_id, string session_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("wpid", wp_id);
                 dict.Add("snky", session_key);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/contact/list/all", content);
+            var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/contact/list/all", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

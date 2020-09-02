@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
-using DataVice.Controller.Struct;
+using DataVice.Model;
 
-namespace DataVice.Controller
+namespace DataVice
 {
     public class User
     {
         #region Fields 
         /// <summary>
-        /// Instance of User Class with authentication, forgot password, reset password, signup, userdata and verify method.
+        /// Instance of User Class with authentication, forgot password, reset password, signup, profile and verify method.
         /// </summary>
         private static User instance;
         public static User Instance
@@ -44,7 +43,7 @@ namespace DataVice.Controller
                 dict.Add("pw", password);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/auth", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/user/auth", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -70,7 +69,7 @@ namespace DataVice.Controller
                 dict.Add("un", username);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/forgot", content);
+            var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/user/forgot", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -98,7 +97,7 @@ namespace DataVice.Controller
                 dict.Add("pw", password);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/reset", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/user/reset", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -134,7 +133,7 @@ namespace DataVice.Controller
                 dict.Add("bg", brgy);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/signup", content);
+            var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/user/signup", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -154,14 +153,14 @@ namespace DataVice.Controller
         #endregion
 
         #region UserData Method
-        public async void UserData(string wp_id, string session_key, Action<bool, string> callback)
+        public async void Profile(string wp_id, string session_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("wpid", wp_id);
                 dict.Add("snky", session_key);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/profile", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/user/profile", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -189,7 +188,7 @@ namespace DataVice.Controller
                 dict.Add("snky", snky);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/user/verify", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/user/verify", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

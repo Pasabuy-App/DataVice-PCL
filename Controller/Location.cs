@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
-using DataVice.Controller.Struct;
+using DataVice.Model;
 
-namespace DataVice.Controller
+namespace DataVice
 {
     public class Location
     {
@@ -43,7 +42,7 @@ namespace DataVice.Controller
                 dict.Add("ctc", city_code);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/location/brgy", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/location/brgy", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -70,7 +69,7 @@ namespace DataVice.Controller
                 dict.Add("pc", province_code);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/location/cty", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain  + "/datavice/v1/location/cty", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -96,7 +95,7 @@ namespace DataVice.Controller
             var dict = new Dictionary<string, string>();
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/location/ctry", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/location/ctry", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
@@ -123,7 +122,7 @@ namespace DataVice.Controller
                 dict.Add("cc", country_code);
             var content = new FormUrlEncodedContent(dict);
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/location/prv", content);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/location/prv", content);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

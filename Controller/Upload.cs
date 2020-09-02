@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
-using DataVice.Controller.Struct;
+using DataVice.Model;
 using System.IO;
 
-namespace DataVice.Process
+namespace DataVice
 {
     public class Upload
     {
@@ -37,7 +35,7 @@ namespace DataVice.Process
         }
         #endregion
         #region Methods
-        public async void UploadImage(string wpid, string snky, string img, Action<bool, string> callback)
+        public async void Image(string wpid, string snky, string img, Action<bool, string> callback)
         {
 
             // we need to send a request with multipart/form-data
@@ -51,7 +49,7 @@ namespace DataVice.Process
             FileStream fs = File.OpenRead(img);
             multiForm.Add(new StreamContent(fs), "img", Path.GetFileName(img));
 
-            var response = await client.PostAsync(BaseClass.BaseDomainUrl + "/datavice/v1/process/upload", multiForm);
+            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/process/upload", multiForm);
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)

@@ -1,18 +1,36 @@
-﻿using System;
-
-namespace DataVice
+﻿namespace DataVice
 {
-    public class BaseClass
+    public class DVHost
     {
-        /// <summary>
-        /// Primary base domain url.
-        /// </summary>
-        public static string BaseDomainUrl
+        private static DVHost instance;
+        public static DVHost Instance
         {
             get
             {
-                return "http://localhost/wordpress/wp-json";
+                if (instance == null)
+                    instance = new DVHost();
+                return instance;
             }
         }
+   
+        private bool isInitialized = false;
+        private string baseUrl = "http://localhost";
+        public string BaseDomain
+        {
+            get
+            {
+                return baseUrl + "/wp-json";
+            }
+        }
+
+        public void Initialized(string url)
+        {
+            if (!isInitialized)
+            {
+                baseUrl = url;
+                isInitialized = true;
+            }
+        }
+
     }
 }

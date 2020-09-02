@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DataVice.Controller.Struct
+﻿namespace DataVice.Model
 {
     public class Token
     {
