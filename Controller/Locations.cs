@@ -6,19 +6,19 @@ using DataVice.Model;
 
 namespace DataVice
 {
-    public class Location
+    public class Locations
     {
         #region Fields
         /// <summary>
         /// Instance of Location Class with barangay, city, country and province method.
         /// </summary>
-        private static Location instance;
-        public static Location Instance
+        private static Locations instance;
+        public static Locations Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new Location();
+                    instance = new Locations();
                 return instance;
             }
         }
@@ -29,14 +29,14 @@ namespace DataVice
         /// Web service for communication to our Backend.
         /// </summary>
         HttpClient client;
-        public Location()
+        public Locations()
         {
             client = new HttpClient();
         }
         #endregion
 
-        #region Barangays Method
-        public async void Barangays(string city_code, string master_key, Action<bool, string> callback)
+        #region Barangay Method
+        public async void Barangay(string city_code, string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("city_code", city_code);
@@ -63,8 +63,8 @@ namespace DataVice
         }
         #endregion
 
-        #region Cities Method
-        public async void Cities(string province_code, string master_key, Action<bool, string> callback)
+        #region City Method
+        public async void City(string province_code, string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("prov_code", province_code);
@@ -91,8 +91,8 @@ namespace DataVice
         }
         #endregion
 
-        #region Countries Method
-        public async void Countries(string master_key, Action<bool, string> callback)
+        #region Country Method
+        public async void Country(string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("mkey", master_key);
@@ -118,8 +118,8 @@ namespace DataVice
         }
         #endregion
 
-        #region Provinces Method
-        public async void Provinces(string country_code, string master_key, Action<bool, string> callback)
+        #region Province Method
+        public async void Province(string country_code, string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("country_code", country_code);
