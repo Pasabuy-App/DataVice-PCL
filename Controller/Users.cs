@@ -179,5 +179,122 @@ namespace DataVice
             }
         }
         #endregion
+
+        #region Edit Profile Method
+        public async void EditProfile(string wpid, string snky, string fn, string ln, string dpn, Action<bool, string> callback)
+        {
+            var dict = new Dictionary<string, string>();
+                dict.Add("wpid", wpid);
+                dict.Add("snky", snky);
+                dict.Add("fn", fn);
+                dict.Add("ln", ln);
+                dict.Add("dpn", dpn);
+            var content = new FormUrlEncodedContent(dict);
+
+            var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/user/edit", content);
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                string result = await response.Content.ReadAsStringAsync();
+                Token token = JsonConvert.DeserializeObject<Token>(result);
+
+                bool success = token.status == "success" ? true : false;
+                string data = token.status == "success" ? result : token.message;
+                callback(success, data);
+            }
+            else
+            {
+                callback(false, "Network Error! Check your connection.");
+            }
+        }
+        #endregion
+
+        #region Change Password Method
+        public async void ChangePassword(string wpid, string snky, string pas, string npas, string cpas, Action<bool, string> callback)
+        {
+            var dict = new Dictionary<string, string>();
+                dict.Add("wpid", wpid);
+                dict.Add("snky", snky);
+                dict.Add("pas", pas);
+                dict.Add("npas", npas);
+                dict.Add("cpas", cpas);
+            var content = new FormUrlEncodedContent(dict);
+
+            var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/user/password/edit", content);
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                string result = await response.Content.ReadAsStringAsync();
+                Token token = JsonConvert.DeserializeObject<Token>(result);
+
+                bool success = token.status == "success" ? true : false;
+                string data = token.status == "success" ? result : token.message;
+                callback(success, data);
+            }
+            else
+            {
+                callback(false, "Network Error! Check your connection.");
+            }
+        }
+        #endregion
+
+        #region New Password Method
+        public async void NewPassword(string ak, string un, string npas, string cpas, Action<bool, string> callback)
+        {
+            var dict = new Dictionary<string, string>();
+                dict.Add("ak", ak);
+                dict.Add("un", un);
+                dict.Add("npas", npas);
+                dict.Add("cpas", cpas);
+            var content = new FormUrlEncodedContent(dict);
+
+            var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/user/activate/verify", content);
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                string result = await response.Content.ReadAsStringAsync();
+                Token token = JsonConvert.DeserializeObject<Token>(result);
+
+                bool success = token.status == "success" ? true : false;
+                string data = token.status == "success" ? result : token.message;
+                callback(success, data);
+            }
+            else
+            {
+                callback(false, "Network Error! Check your connection.");
+            }
+        }
+        #endregion
+
+        #region Activate Account Method
+        public async void Activate(string ak, string un, Action<bool, string> callback)
+        {
+            var dict = new Dictionary<string, string>();
+                dict.Add("ak", ak);
+                dict.Add("un", un);
+            var content = new FormUrlEncodedContent(dict);
+
+            var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/user/activate", content);
+            response.EnsureSuccessStatusCode();
+
+            if (response.IsSuccessStatusCode)
+            {
+                string result = await response.Content.ReadAsStringAsync();
+                Token token = JsonConvert.DeserializeObject<Token>(result);
+
+                bool success = token.status == "success" ? true : false;
+                string data = token.status == "success" ? result : token.message;
+                callback(success, data);
+            }
+            else
+            {
+                callback(false, "Network Error! Check your connection.");
+            }
+        }
+        #endregion
+
     }
 }
