@@ -153,34 +153,6 @@ namespace DataVice
         }
         #endregion
 
-        #region Profile Method
-        public async void Profile(string wp_id, string session_key, Action<bool, string> callback)
-        {
-            var dict = new Dictionary<string, string>();
-                dict.Add("wpid", wp_id);
-                dict.Add("snky", session_key);
-            var content = new FormUrlEncodedContent(dict);
-
-            var response = await client.PostAsync( DVHost.Instance.BaseDomain + "/datavice/v1/user/profile", content);
-            response.EnsureSuccessStatusCode();
-
-            if (response.IsSuccessStatusCode)
-            {
-                string result = await response.Content.ReadAsStringAsync();
-                Token token = JsonConvert.DeserializeObject<Token>(result);
-
-                bool success = token.status == "success" ? true : false;
-                string data = token.status == "success" ? result : token.message;
-                callback(success, data);
-            }
-            else
-            {
-                callback(false, "Network Error! Check your connection.");
-            }
-
-        }
-        #endregion
-
         #region Verify Method
         public async void Verify(string wpid, string snky, Action<bool, string> callback)
         {

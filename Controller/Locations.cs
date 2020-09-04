@@ -36,7 +36,7 @@ namespace DataVice
         #endregion
 
         #region Barangay Method
-        public async void Barangay(string city_code, string master_key, Action<bool, string> callback)
+        public async void Barangays(string city_code, string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("city_code", city_code);
@@ -64,7 +64,7 @@ namespace DataVice
         #endregion
 
         #region City Method
-        public async void City(string province_code, string master_key, Action<bool, string> callback)
+        public async void Cities(string province_code, string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("prov_code", province_code);
@@ -92,7 +92,7 @@ namespace DataVice
         #endregion
 
         #region Country Method
-        public async void Country(string master_key, Action<bool, string> callback)
+        public async void Countries(string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("mkey", master_key);
@@ -119,7 +119,7 @@ namespace DataVice
         #endregion
 
         #region Province Method
-        public async void Province(string country_code, string master_key, Action<bool, string> callback)
+        public async void Provinces(string country_code, string master_key, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("country_code", country_code);
