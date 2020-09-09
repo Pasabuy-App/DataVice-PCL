@@ -36,13 +36,12 @@ namespace DataVice
         #endregion
 
         #region Delete Method
-        public async void Delete(string wp_id, string session_key, string id, string type,Action<bool, string> callback)
+        public async void Delete(string wp_id, string session_key, string id, Action<bool, string> callback)
         {
             var dict = new Dictionary<string, string>();
                 dict.Add("wpid", wp_id);
                 dict.Add("snky", session_key);
                 dict.Add("id", id);
-                dict.Add("type", type);
             var content = new FormUrlEncodedContent(dict);
 
             var response = await client.PostAsync(DVHost.Instance.BaseDomain + "/datavice/v1/address/delete", content);
