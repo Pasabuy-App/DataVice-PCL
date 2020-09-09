@@ -44,11 +44,12 @@ namespace DataVice
             // add API method parameters
             multiForm.Add(new StringContent(wpid), "wpid");
             multiForm.Add(new StringContent(snky), "snky");
-            multiForm.Add(new StringContent(stid), "stid");
-            multiForm.Add(new StringContent(pdid), "pdid");
             multiForm.Add(new StringContent(type), "type");
-            multiForm.Add(new StringContent(mkey), "mkey");
 
+            if (stid != "") { multiForm.Add(new StringContent(stid), "stid"); }
+            if (pdid != "") { multiForm.Add(new StringContent(pdid), "pdid"); }
+            if (mkey != "") { multiForm.Add(new StringContent(mkey), "mkey"); }
+            
             // add file and directly upload it
             FileStream fs = File.OpenRead(img);
             multiForm.Add(new StreamContent(fs), "img", Path.GetFileName(img));
